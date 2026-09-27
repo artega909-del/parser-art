@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://artega909-del.github.io/parser-art/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parser_ART — заказы для фрилансеров из 220 чатов">
+<meta property="og:description" content="Telegram-бот присылает заказы по вашей профессии: монтаж, дизайн, SMM, тексты и ещё 11 профессий. 3 дня бесплатно.">
+<meta property="og:url" content="https://artega909-del.github.io/parser-art/">
+<meta name="twitter:card" content="summary">
+<title>Бот Parser_ART</title>
+<meta name="description" content="Telegram-бот, который каждый день собирает заказы для фрилансеров из 220 каналов и чатов и присылает только по вашей профессии. 15 профессий, 3 дня бесплатно.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --ground: #0D1422;
+    --panel: #141E31;
+    --panel-2: #1A2740;
+    --ink: #EDF1F7;
+    --muted: #97A3B8;
+    --line: #26344F;
+    --gold: #F2B33D;
+    --gold-ink: #1A1206;
+    --teal: #5CC8B8;
+    --warn: #F08B7A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 17px/1.6 "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    padding-inline: 16px;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1, h2, h3 { font-family: "Unbounded", "IBM Plex Sans", sans-serif; font-weight: 700; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding-block: 22px; gap: 16px; }
+  .logo { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em; text-decoration: none; }
+  .logo span { color: var(--gold); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 15px; }
+  .navlink:hover { color: var(--ink); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    font-weight: 600; font-size: 16px; border-radius: 10px; padding: 14px 22px;
+    border: 1px solid var(--line); background: var(--panel); transition: transform .15s, background .15s;
+  }
+  .btn.gold { background: var(--gold); color: var(--gold-ink); border-color: var(--gold); }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  /* hero: слева обещание, справа живая «лента» карточек */
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding-block: 36px 72px; }
+  .hero h1 { font-size: clamp(32px, 5.2vw, 56px); line-height: 1.08; letter-spacing: -.02em; }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+  .lead { margin-top: 20px; font-size: 19px; color: var(--muted); max-width: 34ch; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .fine { margin-top: 14px; font-size: 14px; color: var(--muted); }
+
+  .stack { position: relative; display: grid; gap: 12px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px 18px; display: grid; gap: 8px;
+  }
+  .card .meta { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted); }
+  .card .tag { color: var(--teal); }
+  .card .task { font-size: 15.5px; }
+  .card .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { font-size: 13px; padding: 5px 10px; border-radius: 99px; background: var(--panel-2); border: 1px solid var(--line); }
+  .pill.go { background: var(--gold); color: var(--gold-ink); border-color: var(--gold); font-weight: 600; }
+  .card:nth-child(2) { margin-left: 28px; opacity: .92; }
+  .card:nth-child(3) { margin-left: 56px; opacity: .78; }
+  @media (prefers-reduced-motion: no-preference) {
+    .card { animation: rise .6s ease-out both; }
+    .card:nth-child(2) { animation-delay: .12s; }
+    .card:nth-child(3) { animation-delay: .24s; }
+    @keyframes rise { from { transform: translateY(10px); opacity: .0; } }
+  }
+
+  .numbers { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
+  .numbers div { padding: 26px 18px; display: grid; gap: 4px; }
+  .numbers div + div { border-left: 1px solid var(--line); }
+  .numbers b { font-family: "Unbounded", sans-serif; font-size: clamp(26px, 3.4vw, 38px); font-variant-numeric: tabular-nums; }
+  .numbers span { color: var(--muted); font-size: 14.5px; }
+
+  section { padding-block: 72px; }
+  .kicker { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); font-weight: 600; margin-bottom: 12px; }
+  h2 { font-size: clamp(24px, 3.4vw, 36px); line-height: 1.15; max-width: 22ch; }
+
+  .how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; counter-reset: s; }
+  .how li { list-style: none; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; gap: 8px; counter-increment: s; }
+  .how li::before { content: counter(s); font-family: "Unbounded", sans-serif; color: var(--gold); font-size: 28px; }
+  .how ol { padding: 0; margin: 0; display: contents; }
+  .how h3, .feat h3 { font-size: 17px; }
+  .how p, .feat p { color: var(--muted); font-size: 15.5px; }
+
+  .profs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .profs span { padding: 8px 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--panel); font-size: 15px; }
+
+  .feat { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 36px; }
+  .feat > div { background: var(--ground); padding: 24px; display: grid; gap: 8px; align-content: start; }
+
+  .prices { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 36px; }
+  .price { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+  .price.hot { border-color: var(--gold); }
+  .price h3 { font-size: 15px; }
+  .price b { font-family: "Unbounded", sans-serif; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .price small { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+  .price .trial { color: var(--teal); font-size: 13px; font-weight: 600; }
+
+  .cust { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 40px; }
+  .cust ul { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .cust li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; color: var(--muted); }
+  .cust li::before { content: "→"; color: var(--gold); }
+
+  .faq { display: grid; gap: 10px; margin-top: 28px; max-width: 760px; }
+  details { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin-top: 10px; color: var(--muted); }
+
+  footer { border-top: 1px solid var(--line); padding-block: 28px 48px; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .hero, .cust { grid-template-columns: 1fr; }
+    .prices { grid-template-columns: repeat(2, 1fr); }
+    .how { grid-template-columns: 1fr; }
+    .numbers { grid-template-columns: repeat(2, 1fr); }
+    .numbers div:nth-child(3) { border-left: 0; }
+    .numbers div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .cust { padding: 26px; }
+  }
+  @media (max-width: 560px) {
+    .feat, .prices { grid-template-columns: 1fr; }
+    .card:nth-child(2), .card:nth-child(3) { margin-left: 0; }
+    .navlink { display: none; }
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#top">Parser<span>_</span>ART</a>
+    <div style="display:flex;gap:22px;align-items:center">
+      <a class="navlink" href="#how">Как работает</a>
+      <a class="navlink" href="#prices">Цены</a>
+      <a class="navlink" href="#customers">Заказчикам</a>
+      <a class="btn gold" href="https://t.me/Parser_ARTbot?start=site" style="padding:10px 16px;font-size:15px">Открыть бота</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <h1>Заказы для фрилансеров <em>из 220 чатов</em> — в одном боте</h1>
+      <p class="lead">Бот каждый день читает Telegram-каналы и чаты с заказами и присылает только те, что подходят под вашу профессию. Без резюме, курсов и спама.</p>
+      <div class="cta">
+        <a class="btn gold" href="https://t.me/Parser_ARTbot?start=site">Получить заказы — 3 дня бесплатно</a>
+        <a class="btn" href="#customers">Я ищу исполнителя</a>
+      </div>
+      <p class="fine">Заказчику пишете вы сами — бот пишет от вашего имени, только если вы выбрали такой тариф. Без комиссий со сделки.</p>
+    </div>
+    <div class="stack" aria-label="Так выглядят заказы в боте">
+      <div class="card">
+        <div class="meta"><span class="tag">🎬 Видеомонтаж</span><span class="mono">12 мин назад</span></div>
+        <p class="task">Нужен монтажёр Reels для фитнес-блога: 8 роликов в месяц, субтитры, динамичный монтаж.</p>
+        <div class="row"><span class="pill">💰 15 000 ₽</span><span class="pill go">💬 Написать заказчику</span><span class="pill">✨ Отклик</span></div>
+      </div>
+      <div class="card">
+        <div class="meta"><span class="tag">🎨 Дизайн</span><span class="mono">31 мин назад</span></div>
+        <p class="task">Карточки для Wildberries, 10 штук, инфографика в едином стиле.</p>
+        <div class="row"><span class="pill">💰 7 000 ₽</span><span class="pill go">💬 Написать заказчику</span></div>
+      </div>
+      <div class="card">
+        <div class="meta"><span class="tag">📱 SMM</span><span class="mono">1 ч назад</span></div>
+        <p class="task">Ищем SMM на ведение Telegram и VK для кофейни, контент-план на месяц.</p>
+        <div class="row"><span class="pill go">💬 Написать заказчику</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="numbers">
+    <div><b>220</b><span>каналов и чатов с заказами + Reddit</span></div>
+    <div><b>~300</b><span>новых заказов в день</span></div>
+    <div><b>15</b><span>профессий, можно выбрать две</span></div>
+    <div><b>1 500+</b><span>исполнителей в базе для заказчиков</span></div>
+  </div>
+
+  <section id="how">
+    <div class="kicker">Как это работает</div>
+    <h2>Вы выбираете профессию — бот приносит заказы</h2>
+    <div class="how"><ol>
+      <li><h3>Откройте бота</h3><p>Нажмите «Ищу заказы» и выберите профессию. Если занимаетесь двумя делами — отметьте обе.</p></li>
+      <li><h3>Получайте заказы</h3><p>Бот читает 220 каналов и чатов, отсеивает резюме, рекламу и спам и присылает карточку: задача, бюджет, давность.</p></li>
+      <li><h3>Пишите заказчику</h3><p>Кнопка открывает чат с заказчиком. Отклик можно взять готовый или попросить нейросеть написать под заказ.</p></li>
+    </ol></div>
+    <div class="profs" aria-label="Профессии">
+      <span>🎬 Монтаж</span><span>✨ Моушн</span><span>🤖 AI-креатор</span><span>🎨 Дизайн</span><span>📱 SMM</span><span>✍️ Тексты</span><span>🎯 Таргет</span><span>🧊 3D</span><span>🎙 Озвучка</span><span>⚙️ Техспец</span><span>🛒 Маркетплейсы</span><span>💬 Чат-боты</span><span>💻 Разработка</span><span>📷 Фото</span><span>🗂 Ассистент</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Что умеет</div>
+    <h2>Меньше листать — больше откликаться</h2>
+    <div class="feat">
+      <div><h3>🧹 Только живые заказы</h3><p>Резюме конкурентов, курсы, «рассылка по чатам за 5$» и фальшивые заказы чужих ботов отсеиваются до вас.</p></div>
+      <div><h3>✨ Отклик нейросетью</h3><p>Одна кнопка — и нейросеть пишет отклик под конкретный заказ по вашей анкете: с деталями задачи и ссылкой на портфолио.</p></div>
+      <div><h3>🔎 Свои слова и бюджет</h3><p>«Только Reels», «без свадеб», «от 5 000 ₽» — показываем то, что вам интересно.</p></div>
+      <div><h3>📅 Свежесть на выбор</h3><p>Заказы за неделю, месяц или все сразу. Каждый заказ помечен, сколько ему часов.</p></div>
+      <div><h3>📄 Анкета для заказчиков</h3><p>Заполните анкету — заказчики, которые ищут исполнителя в боте, найдут вас сами.</p></div>
+      <div><h3>🎁 Друзьям — вам дни</h3><p>Пригласили друга, и он начал пользоваться — вам +7 дней подписки.</p></div>
+    </div>
+  </section>
+
+  <section id="prices">
+    <div class="kicker">Цены</div>
+    <h2>Один заказ окупает месяц</h2>
+    <div class="prices">
+      <div class="price"><h3>Старт</h3><b>≈300 ₽</b><small>в месяц · 270 ⭐<br>5 новых заказов каждый день</small><span class="trial">3 дня бесплатно</span></div>
+      <div class="price hot"><h3>Заявки</h3><b>≈500 ₽</b><small>в месяц · 450 ⭐<br>все заказы сразу, срочные прилетают в бот сами</small><span class="trial">3 дня бесплатно</span></div>
+      <div class="price"><h3>Помощник</h3><b>≈800 ₽</b><small>в месяц · 720 ⭐<br>бот пишет заказчику по вашему нажатию и ведёт переписку</small></div>
+      <div class="price"><h3>Приоритет</h3><b>≈1 200 ₽</b><small>в месяц · 1 080 ⭐<br>заказы на 6 минут раньше остальных, ваша анкета — первой у заказчиков</small><span class="trial">3 дня бесплатно</span></div>
+      <div class="price"><h3>Полный</h3><b>≈1 500 ₽</b><small>в месяц · 1 350 ⭐<br>бот сам пишет заказчикам от вашего имени</small></div>
+    </div>
+    <p class="fine" style="margin-top:18px">Оплата прямо в боте: звёздами Telegram, переводом по СБП или криптой (USDT, TON).</p>
+  </section>
+
+  <section id="customers">
+    <div class="cust">
+      <div>
+        <div class="kicker">Заказчикам</div>
+        <h2>Нужен монтажёр, дизайнер или SMM?</h2>
+        <ul>
+          <li>В базе 1 500+ исполнителей с портфолио — смотреть бесплатно, первый контакт тоже.</li>
+          <li>Разместите заказ за минуту: что нужно, объём, срок, бюджет — исполнители напишут сами.</li>
+          <li>Бот сразу покажет, кто из базы подходит под задачу.</li>
+          <li>Договариваетесь напрямую, без посредников и комиссий.</li>
+        </ul>
+      </div>
+      <div style="display:grid;gap:14px;justify-items:start">
+        <p style="color:var(--muted)">Размещение заказа — 300 ⭐ (≈330 ₽). Пакет из 3 контактов — 300 ⭐.</p>
+        <a class="btn gold" href="https://t.me/Parser_ARTbot?start=site_cust">Найти исполнителя</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">Вопросы</div>
+    <h2>Коротко о главном</h2>
+    <div class="faq">
+      <details><summary>Бот пишет заказчикам от моего имени?</summary><p>На тарифах «Старт», «Заявки» и «Приоритет» — нет: бот приносит заказы, а писать или нет, решаете вы, чат открывается одной кнопкой. Писать за вас бот будет, только если вы сами выбрали «Помощник» или «Полный».</p></details>
+      <details><summary>Откуда берутся заказы?</summary><p>Из 220 открытых Telegram-каналов и чатов, где публикуют заказы и вакансии, и с Reddit. Список постоянно растёт.</p></details>
+      <details><summary>Что если оплата не прошла?</summary><p>В боте под каждой оплатой есть кнопка «Проблема с оплатой» — напишите, включим доступ вручную или вернём деньги.</p></details>
+      <details><summary>Можно попробовать бесплатно?</summary><p>Да: тарифы «Старт», «Заявки» и «Приоритет» — 3 дня бесплатно, без привязки карты.</p></details>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Parser_ART · Telegram-бот <a href="https://t.me/Parser_ARTbot?start=site">@Parser_ARTbot</a></span>
+    <span>Вопросы: <a href="https://t.me/Artega909">@Artega909</a></span>
+  </footer>
+</div>
+
+</body>
+</html>
