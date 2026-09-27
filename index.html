@@ -40,6 +40,12 @@
   p { margin: 0; }
   .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
 
+  .launch { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;
+    text-align: center; background: var(--gold); color: var(--gold-ink); font-size: 15px;
+    padding: 10px 16px; margin-inline: -16px; font-weight: 500; }
+  .launch b { font-weight: 700; }
+  .launch-note { margin-top: 18px; background: var(--panel); border: 1px solid var(--gold);
+    border-radius: 12px; padding: 16px 18px; color: var(--ink); font-size: 15.5px; max-width: 760px; }
   nav { display: flex; justify-content: space-between; align-items: center; padding-block: 22px; gap: 16px; }
   .logo { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em; text-decoration: none; }
   .logo span { color: var(--gold); }
@@ -144,6 +150,7 @@
 
 </head>
 <body>
+<div class="launch" role="note"><b>🔥 Тестовый запуск — цены снижены.</b> <span>После официального запуска они вырастут.</span></div>
 <div class="wrap">
   <nav>
     <a class="logo" href="#top">Parser<span>_</span>ART</a>
@@ -227,6 +234,7 @@
       <div class="price"><h3>Приоритет</h3><b>≈1 200 ₽</b><small>в месяц · 1 080 ⭐<br>заказы на 6 минут раньше остальных, ваша анкета — первой у заказчиков</small><span class="trial">3 дня бесплатно</span></div>
       <div class="price"><h3>Полный</h3><b>≈1 500 ₽</b><small>в месяц · 1 350 ⭐<br>бот сам пишет заказчикам от вашего имени</small></div>
     </div>
+    <p class="launch-note">🔥 <b>Это цены тестового запуска.</b> После официального запуска они вырастут: в боте 220 каналов с заказами, 15 профессий, живая доставка, база исполнителей и отклики нейросетью — такого набора нет у других ботов, и всё это нужно поддерживать. Подключиться сейчас — выгоднее всего.</p>
     <p class="fine" style="margin-top:18px">Оплата прямо в боте: звёздами Telegram, переводом по СБП или криптой (USDT, TON).</p>
   </section>
 
