@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://artega909-del.github.io/parser-art/zakazchikam.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Найти монтажёра, дизайнера или SMM — Parser_ART">
+<meta property="og:description" content="1 500+ исполнителей с портфолио в одном Telegram-боте. 20 анкет и первый контакт — бесплатно. Разместите заказ — исполнители напишут сами.">
+<meta property="og:url" content="https://artega909-del.github.io/parser-art/zakazchikam.html">
+<meta name="twitter:card" content="summary">
+<title>Найти исполнителя в Parser_ART</title>
+<meta name="description" content="Нужен монтажёр, дизайнер, SMM или копирайтер? В Telegram-боте Parser_ART 1 500+ исполнителей по 15 профессиям. Смотрите анкеты бесплатно или разместите заказ — исполнители напишут сами.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  /* Та же система, что на главной (index.html): тёмная «лента», золото — действие. */
+  :root {
+    color-scheme: dark;
+    --ground: #0D1422;
+    --panel: #141E31;
+    --panel-2: #1A2740;
+    --ink: #EDF1F7;
+    --muted: #97A3B8;
+    --line: #26344F;
+    --gold: #F2B33D;
+    --gold-ink: #1A1206;
+    --teal: #5CC8B8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 17px/1.6 "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    padding-inline: 16px;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1, h2, h3 { font-family: "Unbounded", "IBM Plex Sans", sans-serif; font-weight: 700; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding-block: 22px; gap: 16px; }
+  .logo { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.01em; text-decoration: none; }
+  .logo span { color: var(--gold); }
+  .navlink { color: var(--muted); text-decoration: none; font-size: 15px; }
+  .navlink:hover { color: var(--ink); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    font-weight: 600; font-size: 16px; border-radius: 10px; padding: 14px 22px;
+    border: 1px solid var(--line); background: var(--panel); transition: transform .15s;
+  }
+  .btn.gold { background: var(--gold); color: var(--gold-ink); border-color: var(--gold); }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  /* hero: слева обещание, справа — анкеты, как их видит заказчик в боте */
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding-block: 36px 72px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.08; letter-spacing: -.02em; }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+  .lead { margin-top: 20px; font-size: 19px; color: var(--muted); max-width: 36ch; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .fine { margin-top: 14px; font-size: 14px; color: var(--muted); }
+
+  .stack { display: grid; gap: 12px; }
+  .person {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px 18px; display: grid; grid-template-columns: 44px 1fr; gap: 6px 14px; align-items: start;
+  }
+  .ava { grid-row: span 3; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    font-family: "Unbounded", sans-serif; font-size: 16px; background: var(--panel-2); border: 1px solid var(--line); color: var(--gold); }
+  .person .who { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; }
+  .person .who span { color: var(--teal); font-weight: 500; font-size: 13.5px; }
+  .person .what { font-size: 15px; color: var(--muted); }
+  .person .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { font-size: 13px; padding: 5px 10px; border-radius: 99px; background: var(--panel-2); border: 1px solid var(--line); }
+  .pill.go { background: var(--gold); color: var(--gold-ink); border-color: var(--gold); font-weight: 600; }
+  .person:nth-child(2) { margin-left: 28px; opacity: .92; }
+  .person:nth-child(3) { margin-left: 56px; opacity: .8; }
+  @media (prefers-reduced-motion: no-preference) {
+    .person { animation: rise .6s ease-out both; }
+    .person:nth-child(2) { animation-delay: .12s; }
+    .person:nth-child(3) { animation-delay: .24s; }
+    @keyframes rise { from { transform: translateY(10px); opacity: 0; } }
+  }
+
+  .numbers { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
+  .numbers div { padding: 26px 18px; display: grid; gap: 4px; }
+  .numbers div + div { border-left: 1px solid var(--line); }
+  .numbers b { font-family: "Unbounded", sans-serif; font-size: clamp(26px, 3.4vw, 38px); font-variant-numeric: tabular-nums; }
+  .numbers span { color: var(--muted); font-size: 14.5px; }
+
+  section { padding-block: 72px; }
+  .kicker { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); font-weight: 600; margin-bottom: 12px; }
+  h2 { font-size: clamp(24px, 3.4vw, 36px); line-height: 1.15; max-width: 24ch; }
+
+  /* Два пути — это правда два разных сценария, поэтому две колонки, а не шаги */
+  .ways { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
+  .way { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 26px; display: grid; gap: 14px; align-content: start; }
+  .way h3 { font-size: 19px; }
+  .way ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--muted); }
+  .way ol li::marker { color: var(--gold); font-family: "IBM Plex Mono", monospace; }
+  .way .for { font-size: 14px; color: var(--teal); font-weight: 600; }
+
+  .profs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .profs span { padding: 8px 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--panel); font-size: 15px; }
+
+  .prices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 36px; }
+  .price { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+  .price.hot { border-color: var(--gold); }
+  .price h3 { font-size: 15px; }
+  .price b { font-family: "Unbounded", sans-serif; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .price small { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+  .free { margin-top: 18px; background: var(--panel); border: 1px solid var(--teal); border-radius: 12px; padding: 16px 18px; max-width: 760px; font-size: 15.5px; }
+
+  .faq { display: grid; gap: 10px; margin-top: 28px; max-width: 760px; }
+  details { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin-top: 10px; color: var(--muted); }
+
+  .final { display: grid; justify-items: start; gap: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 40px; }
+
+  footer { border-top: 1px solid var(--line); padding-block: 28px 48px; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .hero, .ways { grid-template-columns: 1fr; }
+    .prices { grid-template-columns: repeat(2, 1fr); }
+    .numbers { grid-template-columns: repeat(2, 1fr); }
+    .numbers div:nth-child(3) { border-left: 0; }
+    .numbers div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .final { padding: 26px; }
+  }
+  @media (max-width: 560px) {
+    .prices { grid-template-columns: 1fr; }
+    .person:nth-child(2), .person:nth-child(3) { margin-left: 0; }
+    .navlink { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="./">Parser<span>_</span>ART</a>
+    <div style="display:flex;gap:22px;align-items:center">
+      <a class="navlink" href="#how">Как найти</a>
+      <a class="navlink" href="#prices">Цены</a>
+      <a class="navlink" href="./">Исполнителям</a>
+      <a class="btn gold" href="https://t.me/Parser_ARTbot?start=site_zakaz" style="padding:10px 16px;font-size:15px">Открыть бота</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <h1>Нужен монтажёр, дизайнер или SMM? <em>1 500+ исполнителей</em> в одном боте</h1>
+      <p class="lead">Смотрите анкеты с портфолио прямо в Telegram или разместите заказ — подходящие исполнители напишут вам сами.</p>
+      <div class="cta">
+        <a class="btn gold" href="https://t.me/Parser_ARTbot?start=site_zakaz">Найти исполнителя</a>
+        <a class="btn" href="#how">Как это работает</a>
+      </div>
+      <p class="fine">20 анкет и первый контакт — бесплатно. Договариваетесь напрямую, без комиссии со сделки.</p>
+    </div>
+    <div class="stack" aria-label="Так выглядят анкеты в боте">
+      <div class="person">
+        <div class="ava" aria-hidden="true">А</div>
+        <div class="who">Анна <span>🎬 Видеомонтаж</span></div>
+        <p class="what">Reels и Shorts для экспертов, субтитры, динамичный монтаж. Опыт 3 года.</p>
+        <div class="row"><span class="pill">📂 Портфолио</span><span class="pill go">📞 Контакт</span></div>
+      </div>
+      <div class="person">
+        <div class="ava" aria-hidden="true">Д</div>
+        <div class="who">Дмитрий <span>🎨 Дизайн</span></div>
+        <p class="what">Карточки для Wildberries и Ozon, инфографика, баннеры.</p>
+        <div class="row"><span class="pill">📂 Портфолио</span><span class="pill go">📞 Контакт</span></div>
+      </div>
+      <div class="person">
+        <div class="ava" aria-hidden="true">М</div>
+        <div class="who">Мария <span>📱 SMM</span></div>
+        <p class="what">Ведение Telegram и VK, контент-план, тексты постов.</p>
+        <div class="row"><span class="pill">📂 Портфолио</span><span class="pill go">📞 Контакт</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="numbers">
+    <div><b>1 500+</b><span>исполнителей с анкетами</span></div>
+    <div><b>15</b><span>профессий: от монтажа до чат-ботов</span></div>
+    <div><b>20</b><span>анкет можно посмотреть бесплатно</span></div>
+    <div><b>0 %</b><span>комиссии — платите исполнителю напрямую</span></div>
+  </div>
+
+  <section id="how">
+    <div class="kicker">Как найти</div>
+    <h2>Выберите сами — или пусть исполнители найдут вас</h2>
+    <div class="ways">
+      <div class="way">
+        <span class="for">Если хотите выбрать сами</span>
+        <h3>🔎 Смотреть анкеты</h3>
+        <ol>
+          <li>Откройте бота и нажмите «Ищу исполнителя».</li>
+          <li>Выберите профессию — бот покажет анкеты по одной: опыт, услуги, портфолио.</li>
+          <li>Понравился — откройте контакт и напишите ему в Telegram.</li>
+        </ol>
+      </div>
+      <div class="way">
+        <span class="for">Если некогда листать</span>
+        <h3>📝 Разместить заказ</h3>
+        <ol>
+          <li>Опишите задачу за минуту: что нужно, объём, срок, бюджет.</li>
+          <li>Заказ увидят исполнители нужной профессии — и напишут вам сами.</li>
+          <li>Выбираете из откликов того, кто подходит по портфолио и цене.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="profs" aria-label="Профессии">
+      <span>🎬 Монтаж</span><span>✨ Моушн</span><span>🤖 AI-креатор</span><span>🎨 Дизайн</span><span>📱 SMM</span><span>✍️ Тексты</span><span>🎯 Таргет</span><span>🧊 3D</span><span>🎙 Озвучка</span><span>⚙️ Техспец</span><span>🛒 Маркетплейсы</span><span>💬 Чат-боты</span><span>💻 Разработка</span><span>📷 Фото</span><span>🗂 Ассистент</span>
+    </div>
+  </section>
+
+  <section id="prices">
+    <div class="kicker">Цены</div>
+    <h2>Платите за доступ, а не процент со сделки</h2>
+    <div class="prices">
+      <div class="price"><h3>3 контакта</h3><b>≈330 ₽</b><small>300 ⭐<br>открыть контакты трёх исполнителей</small></div>
+      <div class="price"><h3>Размещение заказа</h3><b>≈330 ₽</b><small>300 ⭐<br>исполнители нужной профессии увидят заказ и напишут сами</small></div>
+      <div class="price hot"><h3>Вся база</h3><b>≈2 000 ₽</b><small>1 800 ⭐ · 30 дней<br>все анкеты и все контакты без ограничений</small></div>
+      <div class="price"><h3>Подбор</h3><b>≈4 400 ₽</b><small>4 000 ⭐ · 30 дней<br>заказы без оплаты за размещение и по 10 подходящих исполнителей с контактами под каждый</small></div>
+    </div>
+    <p class="free">🎁 <b>Бесплатно:</b> 20 анкет и первый контакт — чтобы вы увидели базу до оплаты. Оплата прямо в боте звёздами Telegram.</p>
+  </section>
+
+  <section>
+    <div class="kicker">Вопросы</div>
+    <h2>Коротко о главном</h2>
+    <div class="faq">
+      <details><summary>Откуда исполнители в базе?</summary><p>Часть заполнила анкету в боте сама, часть — из открытых Telegram-каналов, где исполнители публикуют резюме. Первыми в поиске идут те, кто заполнил анкету сам: они ждут заказов прямо сейчас.</p></details>
+      <details><summary>Бот берёт процент со сделки?</summary><p>Нет. Вы договариваетесь с исполнителем напрямую и платите ему сами. Бот берёт плату только за доступ к контактам или за размещение заказа.</p></details>
+      <details><summary>Можно посмотреть базу бесплатно?</summary><p>Да: 20 анкет и один контакт — бесплатно, без привязки карты.</p></details>
+      <details><summary>Что если оплата не прошла?</summary><p>В боте под оплатой есть кнопка «Проблема с оплатой» — напишите, включим доступ вручную или вернём деньги.</p></details>
+    </div>
+  </section>
+
+  <section>
+    <div class="final">
+      <h2>Опишите задачу — исполнители напишут сами</h2>
+      <p style="color:var(--muted);max-width:52ch">Откройте бота, нажмите «Ищу исполнителя» и выберите: смотреть анкеты или разместить заказ.</p>
+      <a class="btn gold" href="https://t.me/Parser_ARTbot?start=site_zakaz">Найти исполнителя</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Parser_ART · Telegram-бот <a href="https://t.me/Parser_ARTbot?start=site_zakaz">@Parser_ARTbot</a></span>
+    <span>Вопросы: <a href="https://t.me/Artega909">@Artega909</a></span>
+  </footer>
+</div>
+</body>
+</html>
